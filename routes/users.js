@@ -10,9 +10,15 @@ const timeLog = (req, res, next) => {
 }
 router.use(timeLog)
 
-// define the home page route
-router.get('/', userController.usersHome)
-// define the about route
-router.get('/about', userController.usersAbout)
+// define the all users route
+router.get('/', userController.getAllUsers)
+// define the single user route
+router.get('/:id', userController.getSingleUser)
+// define the create user route
+router.post('/', userController.createUser)
+// define the update user route
+router.put('/:id', userController.updateUser)
+// define the delete user route
+router.delete('/:id', userController.deleteUser)
 
 module.exports = router
