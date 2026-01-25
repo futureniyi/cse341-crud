@@ -1,0 +1,121 @@
+@baseUrl = http://localhost:3000
+@usersUrl = {{baseUrl}}/users
+
+# -----------------------------
+# USERS: GET ALL
+# -----------------------------
+### Get all users
+GET {{usersUrl}}
+Accept: application/json
+
+
+# -----------------------------
+# USERS: POST (VALID)
+# -----------------------------
+### Create user (valid)
+POST {{usersUrl}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "fullName": "Grace Nwosu",
+  "role": "tenant",
+  "email": "tenant5@example.com",
+  "address": "Ikeja, Lagos",
+  "birthday": "1999-02-10",
+  "phone": "+2348011122233"
+}
+
+
+# -----------------------------
+# USERS: POST (INVALID) - to test validation
+# -----------------------------
+### Create user (invalid email)
+POST {{usersUrl}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "fullName": "Bad Email User",
+  "role": "tenant",
+  "email": "not-an-email",
+  "address": "Ikeja, Lagos",
+  "birthday": "1999-02-10",
+  "phone": "+2348011122233"
+}
+
+### Create user (invalid role)
+POST {{usersUrl}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "fullName": "Bad Role User",
+  "role": "student",
+  "email": "badrole@example.com",
+  "address": "Ikeja, Lagos",
+  "birthday": "1999-02-10"
+}
+
+### Create user (invalid birthday)
+POST {{usersUrl}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "fullName": "Bad Birthday User",
+  "role": "tenant",
+  "email": "badbirthday@example.com",
+  "address": "Ikeja, Lagos",
+  "birthday": "10-02-1999"
+}
+
+
+# -----------------------------
+# USERS: PUT
+# NOTE: Replace {{userId}} after you create a user.
+# -----------------------------
+@userId = 69755c275f5be483741adfff
+
+### Update user (valid)
+PUT {{usersUrl}}/{{userId}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "fullName": "Grace Nwosu Updated",
+  "role": "tenant",
+  "email": "tenant5@example.com",
+  "address": "Ojodu Berger, Lagos",
+  "birthday": "1999-02-10",
+  "phone": "+2348011122233"
+}
+
+### Update user (invalid role)
+PUT {{usersUrl}}/{{userId}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "fullName": "Grace Nwosu Updated",
+  "role": "invalidRole",
+  "email": "tenant5@example.com",
+  "address": "Ojodu Berger, Lagos",
+  "birthday": "1999-02-10"
+}
+
+
+# -----------------------------
+# USERS: GET SINGLE
+# -----------------------------
+### Get user by id
+GET {{usersUrl}}/{{userId}}
+Accept: application/json
+
+
+# -----------------------------
+# USERS: DELETE
+# -----------------------------
+### Delete user by id
+DELETE {{usersUrl}}/{{userId}}
+Accept: application/json

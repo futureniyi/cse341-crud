@@ -1,0 +1,174 @@
+@baseUrl = http://localhost:3000
+@propertiesUrl = {{baseUrl}}/properties
+
+# =====================================================
+# PROPERTIES: GET ALL
+# =====================================================
+### Get all properties
+GET {{propertiesUrl}}
+Accept: application/json
+
+
+# =====================================================
+# PROPERTIES: POST (VALID)
+# =====================================================
+### Create property (valid)
+POST {{propertiesUrl}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "title": "Studio Apartment",
+  "addressLine1": "22 Unity Road",
+  "city": "Ikeja",
+  "state": "Lagos",
+  "rentAmount": 600000,
+  "rentCurrency": "NGN",
+  "rentCycle": "yearly",
+  "status": "vacant",
+  "ownerEmail": "landlord3@example.com",
+  "tenantEmail": null,
+  "startDate": null
+}
+
+
+# =====================================================
+# PROPERTIES: POST (INVALID) – VALIDATION TESTS
+# =====================================================
+### Create property (missing required fields)
+POST {{propertiesUrl}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "title": "Bad Property",
+  "city": "Ikeja"
+}
+
+### Create property (invalid email)
+POST {{propertiesUrl}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "title": "Mini Flat",
+  "addressLine1": "12 Adebayo Street",
+  "city": "Yaba",
+  "state": "Lagos",
+  "rentAmount": 850000,
+  "rentCurrency": "NGN",
+  "rentCycle": "yearly",
+  "status": "vacant",
+  "ownerEmail": "not-an-email"
+}
+
+### Create property (invalid rentCycle)
+POST {{propertiesUrl}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "title": "2 Bedroom Flat",
+  "addressLine1": "5 Isheri Road",
+  "city": "Ojodu Berger",
+  "state": "Lagos",
+  "rentAmount": 1300000,
+  "rentCurrency": "NGN",
+  "rentCycle": "weekly",
+  "status": "vacant",
+  "ownerEmail": "landlord1@example.com"
+}
+
+### Create property (invalid status)
+POST {{propertiesUrl}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "title": "Room and Parlour",
+  "addressLine1": "14 Market Road",
+  "city": "Agege",
+  "state": "Lagos",
+  "rentAmount": 300000,
+  "rentCurrency": "NGN",
+  "rentCycle": "yearly",
+  "status": "pending",
+  "ownerEmail": "landlord3@example.com"
+}
+
+### Create property (invalid startDate)
+POST {{propertiesUrl}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "title": "Self Contain",
+  "addressLine1": "21 College Road",
+  "city": "Ifako",
+  "state": "Lagos",
+  "rentAmount": 450000,
+  "rentCurrency": "NGN",
+  "rentCycle": "yearly",
+  "status": "occupied",
+  "ownerEmail": "landlord1@example.com",
+  "startDate": "32-13-2025"
+}
+
+
+# =====================================================
+# PROPERTIES: PUT
+# NOTE: Replace {{propertyId}} with a real ID
+# =====================================================
+@propertyId = 69762c7ce13c635612382336
+
+### Update property (valid)
+PUT {{propertiesUrl}}/{{propertyId}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "title": "Studio Apartment Updated",
+  "addressLine1": "22 Unity Road",
+  "city": "Ikeja",
+  "state": "Lagos",
+  "rentAmount": 650000,
+  "rentCurrency": "NGN",
+  "rentCycle": "yearly",
+  "status": "occupied",
+  "ownerEmail": "landlord3@example.com",
+  "tenantEmail": "tenant3@example.com",
+  "startDate": "2026-01-01"
+}
+
+### Update property (invalid status)
+PUT {{propertiesUrl}}/{{propertyId}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "title": "Studio Apartment Updated",
+  "addressLine1": "22 Unity Road",
+  "city": "Ikeja",
+  "state": "Lagos",
+  "rentAmount": 650000,
+  "rentCurrency": "NGN",
+  "rentCycle": "yearly",
+  "status": "invalidStatus",
+  "ownerEmail": "landlord3@example.com"
+}
+
+
+# =====================================================
+# PROPERTIES: GET SINGLE
+# =====================================================
+### Get property by id
+GET {{propertiesUrl}}/{{propertyId}}
+Accept: application/json
+
+
+# =====================================================
+# PROPERTIES: DELETE
+# =====================================================
+### Delete property by id
+DELETE {{propertiesUrl}}/{{propertyId}}
+Accept: application/json

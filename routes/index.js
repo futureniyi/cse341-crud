@@ -10,6 +10,7 @@ const timeLog = (req, res, next) => {
   console.log('Time: ', Date.now())
   next()
 }
+
 router.use(timeLog)
 
 // define the home page route
