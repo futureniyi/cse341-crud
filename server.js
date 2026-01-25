@@ -21,6 +21,15 @@ app.use((req, res, next) => {
 
 app.use('/', require('./routes'));
 
+// error-handling middleware (must be after routes)
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(500).json({
+    message: 'Server error',
+    error: err.message
+  });
+});
+
 process.on('uncaughtException', (err, origin) => {
   console.log(process.stderr.fd, `Caught exception: ${err}\n` + `Exception origin: ${origin}`);
 });
