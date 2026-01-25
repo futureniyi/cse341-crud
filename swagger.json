@@ -5,10 +5,9 @@
     "description": "Contacts API documentation",
     "version": "1.0.0"
   },
-  "host": "localhost:3000",
+  "host": "cse341-crud-k3q5.onrender.com",
   "basePath": "/",
   "schemes": [
-    "http",
     "https"
   ],
   "paths": {
@@ -335,16 +334,6 @@
           },
           "500": {
             "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api-docs": {
-      "get": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
           }
         }
       }

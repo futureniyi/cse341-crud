@@ -5,14 +5,6 @@ const users = require('./users')
 const properties = require('./properties')
 const homeController = require('../controllers')
 
-// middleware that is specific to this router
-const timeLog = (req, res, next) => {
-  console.log('Time: ', Date.now())
-  next()
-}
-
-router.use(timeLog)
-
 // define the home page route
 router.get('/', homeController.homeRoute)
 

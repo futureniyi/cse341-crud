@@ -4,13 +4,6 @@ const router = express.Router()
 const propertyController = require('../controllers/properties');
 const validation = require('../middleware/validate');
 
-// middleware that is specific to this router
-const timeLog = (req, res, next) => {
-  console.log('Time: ', Date.now())
-  next()
-}
-router.use(timeLog)
-
 // define the all properties route
 router.get('/', propertyController.getAllProperties)
 // define the single property route

@@ -4,13 +4,6 @@ const router = express.Router()
 const userController = require('../controllers/users');
 const validation = require('../middleware/validate');
 
-// middleware that is specific to this router
-const timeLog = (req, res, next) => {
-  console.log('Time: ', Date.now())
-  next()
-}
-router.use(timeLog)
-
 // define the all users route
 router.get('/', userController.getAllUsers)
 // define the single user route
