@@ -39,15 +39,6 @@ app
   .use(cors({ methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH'] }))
   .use(cors({ origin: '*' }))
 
-// error-handling middleware (must be after routes)
-app.use((err, req, res, next) => {
-  console.error(err);
-  res.status(500).json({
-    message: 'Server error',
-    error: err.message
-  });
-});
-
 process.on('uncaughtException', (err, origin) => {
   console.log(process.stderr.fd, `Caught exception: ${err}\n` + `Exception origin: ${origin}`);
 });
@@ -72,9 +63,6 @@ passport.deserializeUser((obj, done) => {
   done(null, obj);
 });
 
-app.get('/', (req, res) => { res.send(req.session.user !== undefined ? `Logged In as ${req.session.user.displayName}` : 'Logged Out');
-});
-
 // app.get('/auth/github/callback',
 //   passport.authenticate('github', {
 //     failureRedirect: '/api-docs', session: false}),
@@ -84,16 +72,25 @@ app.get('/', (req, res) => { res.send(req.session.user !== undefined ? `Logged I
 //   }
 // );
 
-app.get('/auth/github/callback',
-  passport.authenticate('github', {
-    failureRedirect: 'api-docs', session: false
-  }),
+app.get(
+  '/auth/github/callback',
+  passport.authenticate('github', { failureRedirect: '/api-docs' }),
   (req, res) => {
     req.session.user = req.user;
     res.redirect('/');
-  });
+  }
+);
 
-  app.use('/', require('./routes'));
+app.use('/', require('./routes'));
+
+// error-handling middleware (must be after routes)
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(500).json({
+    message: 'Server error',
+    error: err.message
+  });
+});
 
 mongodb.initDB((err) => {
   if (err) {
